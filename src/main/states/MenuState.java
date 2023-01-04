@@ -11,82 +11,81 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 /**
- * l'état du menu affiché au début du jeu
- * @author Stoufa
+ * el estado del menÃº que se muestra al comienzo del juego
  *
  */
 public class MenuState extends BasicGameState {
     /**
-     * liste des options
+     * lista de opciones
      */
     private String[]  menuOptions = new String[] {
             "Jouer",
             "Quitter"
     };
     /**
-     * permet de savoir quelle option on a séléctionné ( initialement la premiére )
+     * le permite saber quÃ© opciÃ³n ha seleccionado (inicialmente la primera)
      */
     private int       index       = 0;
     /**
-     * identificateur de l'état ( State )
+     * identificador de estado ( Estado )
      */
     public static int stateID;
 
     /**
      * constructeur
-     * @param stateID identificateur de l'état ( state )
+     * @param stateID identificateur de l'ï¿½tat ( state )
      */
     public MenuState( int stateID ) {
         MenuState.stateID = stateID;
     }
 
     /**
-     * initialiser l'état du menu
+     * inicializar el estado del menÃº
      */
     @Override
     public void init( GameContainer arg0, StateBasedGame arg1 ) throws SlickException {
-        // rien à initialiser !
+        // rien ï¿½ initialiser !
     }
 
     @Override
     /**
-     * mettre à jour la logique de l'état
+     *actualizar lÃ³gica de estado
      */
     public void update( GameContainer container, StateBasedGame sbg, int delta ) throws SlickException {
-        Input input = container.getInput(); // utilisé pour tester l'entrée de l'utilisateur ( clavier et souris )
-        if ( input.isKeyPressed( Input.KEY_UP ) ) { // si la touche Fléche-Haut est appuiyé
+        Input input = container.getInput(); // utilizadoï¿½ para probar la entrada del usuario (teclado y mouse)
+        if ( input.isKeyPressed( Input.KEY_UP ) ) { // si se presiona la tecla de flecha hacia arribaï¿½
             index--;
-            if ( index == -1 ) { // si on a débordé le tableau du haut ...
-                index = menuOptions.length - 1; // ... on recommance du bas
+            if ( index == -1 ) { //si hemos desbordado la mesa superior...
+                index = menuOptions.length - 1; // ... on recomendar desde abajo
             }
-        } else if ( input.isKeyPressed( Input.KEY_DOWN ) ) { // si la touche Fléche-Bas est appuiyé
+        } else if ( input.isKeyPressed( Input.KEY_DOWN ) ) { // si se presiona la tecla de flecha hacia abajoï¿½
             index++;
-            if ( index == menuOptions.length ) { // si on a débordé le tableau du bas ...
-                index = 0; // ... on recommance du haut
+            if ( index == menuOptions.length ) { // si hemos desbordado la mesa de abajo...
+                index = 0; // ... comenzamos de nuevo desde arriba
             }
-        } else if ( input.isKeyPressed( Input.KEY_ENTER ) ) { // si la touche Entrée est appuiyé
-            if ( index == 0 ) { // premiére option : Jouer
-                // On entre l'état ( State ) du jeu avec des transitions
+        } else if ( input.isKeyPressed( Input.KEY_ENTER ) ) { // si se presiona la tecla Enter
+            if ( index == 0 ) { // primera opciÃ³n: Jugar
+                //Entramos en el Estado del juego con transiciones
                 sbg.enterState( GameState.stateID, new FadeOutTransition(), new FadeInTransition() );
             } else if ( index == 1 ) { // 2eme option : Quitter
-                // Quitter l'application
+                // Salir de la aplicaciÃ³n
                 System.exit( 0 );
             }
         }
     }
 
     /**
-     * dessiner la logique du menu
+     * dibujar la lÃ³gica del menÃº
      */
     @Override
     public void render( GameContainer gc, StateBasedGame sbg, Graphics g ) throws SlickException {
-        for ( int i = 0; i < menuOptions.length; ++i ) { // On parcourt toutes les options
-            if ( i == index ) { // l'option séléctionnée ...
-                g.setColor( Color.red ); // ... est colorée en rouge
-            } else { // les autres
-                g.setColor( Color.white ); // sont colorées en blanc
+        for ( int i = 0; i < menuOptions.length; ++i ) { // Repasamos todas las opciones
+            if ( i == index ) { // la opciÃ³n seleccionada...
+                g.setColor( Color.red ); // ... es de color rojo
+            } else { // los otros
+                g.setColor( Color.white ); // son de color blanco
             }
-            int step = gc.getHeight() / ( menuOptions.length + 1 ); // l'espace entre les différents options
+            int step = gc.getHeight() / ( menuOptions.length + 1 ); // el espacio entre las diferentes opciones
             /*
              * ----------
              * <step>
@@ -95,9 +94,9 @@ public class MenuState extends BasicGameState {
              * option2
              * <step>
              * ----------
-             * On doit donc diviser la hauteur de la fenêtre par (le nombre d'options + 1)
+             * Por lo tanto, debemos dividir la altura de la ventana por (el nÃºmero de opciones + 1)
              */
-            // afficher l'option centré
+         // mostrar la opciÃ³n centrada
             g.drawString(
                     menuOptions[i],
                     gc.getWidth() / 2 - g.getFont().getWidth( menuOptions[i] ) / 2,
@@ -106,7 +105,7 @@ public class MenuState extends BasicGameState {
     }
 
     /**
-     * retourne l'identificateur de l'état
+     * devuelve el identificador de estado
      */
     @Override
     public int getID() {

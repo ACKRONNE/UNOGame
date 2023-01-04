@@ -11,12 +11,11 @@ import org.newdawn.slick.state.StateBasedGame;
 import main.gameObjects.Jeu;
 
 /**
- * @author Stoufa
- * l'�tat ( State ) de fin du  jeu
+ * el estado del final del juego
  */
 public class GameOverState extends BasicGameState {
     /**
-     * identificateur de l'�tat ( State )
+     * identificador de estado ( Estado )
      */
     public static int stateID;
 
@@ -29,7 +28,7 @@ public class GameOverState extends BasicGameState {
     }
 
     /**
-     * initialiser l'�tat ( state )
+     * inicializar el estado ( estado )
      */
     @Override
     public void init( GameContainer arg0, StateBasedGame arg1 ) throws SlickException {
@@ -37,30 +36,30 @@ public class GameOverState extends BasicGameState {
     }
 
     /**
-     * mettre � jour la logique de l'�tat
+     * actualizar lógica de estado
      */
     @Override
     public void update( GameContainer container, StateBasedGame sbg, int delta ) throws SlickException {
-        Input input = container.getInput(); // utilis� pour tester l'entr�e de l'utilisateur ( clavier et souris )
-        if ( input.isKeyPressed( Input.KEY_ESCAPE ) | input.isKeyPressed( Input.KEY_N ) ) { // touche �chap ou n
-            System.exit( 0 ); // Quitter l'application
+        Input input = container.getInput(); //utilizado� para probar la entrada del usuario (teclado y mouse)
+        if ( input.isKeyPressed( Input.KEY_ESCAPE ) | input.isKeyPressed( Input.KEY_N ) ) { //tecla de escape o n
+            System.exit( 0 ); // Salir de la aplicación
         }
-        if ( input.isKeyPressed( Input.KEY_ENTER ) | input.isKeyPressed( Input.KEY_O ) ) { // touche entr�e ou o
-            // r�initialisation de l'�tat du jeu
+        if ( input.isKeyPressed( Input.KEY_ENTER ) | input.isKeyPressed( Input.KEY_O ) ) { // ttecla enter o o
+            // restablecer el estado del juego
             sbg.getState( GameState.stateID ).init( container, sbg );
-            // commuter vers l'�tat du jeu
+            // cambiar al estado del juego
             sbg.enterState( GameState.stateID );
         }
     }
 
     /**
-     * dessiner la logique du menu
+     * dibujar la lógica del menú
      */
     @Override
     public void render( GameContainer gc, StateBasedGame sbg, Graphics g ) throws SlickException {
         g.setColor( Color.white );
         String message = String.format( "Fin del juego, gano!", Jeu.joueurCourant.pseudo );
-        // texte centr� et au milieu de l'�cran
+        //texto centrado y en el medio de la pantalla
         int x = gc.getWidth() / 2 - g.getFont().getWidth( message ) / 2, y = gc.getHeight() / 2;
         g.drawString( message, x, y );
         message = "¿Juega de nuevo? [O/N]";
@@ -69,7 +68,7 @@ public class GameOverState extends BasicGameState {
     }
 
     /**
-     * retourne l'identificateur de l'�tat
+     * devuelve el identificador de estado
      */
     @Override
     public int getID() {

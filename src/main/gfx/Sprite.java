@@ -11,14 +11,14 @@ import main.gameObjects.Couleur;
 import main.gameObjects.Symbole;
 
 /**
- * classe utilis�e pour charger et retourner les sprites / images du jeu
+ *clase utilizada para cargar y devolver sprites/imágenes del juego
  *
  */
 public class Sprite {
     /**
-     * inactive : la sprite / image grise transparente � ajouter au dessus des cartes non jouables !
-     * hidden : la sprite / image de la carte cach�e
-     * s�par�s de la liste des sprites, car elles sont les plus utilis�es ( optimisation )
+     * inactive : ¡el sprite / imagen gris transparente para agregar encima de las cartas no jugables!
+     * hidden : el sprite/imagen del mapa oculto
+     * separados de la lista de sprites, porque son los más utilizados (optimización)
      */
     //public static Image inactive = null, hidden = null;
     /**
@@ -27,7 +27,7 @@ public class Sprite {
     public static HashMap<String, Image> sprites = new HashMap<>();
 
     /**
-     * retourne la sprite de la carte ayant le symbole pass� en param�tre
+     *devuelve el sprite del mapa con el símbolo pasado como parámetro
      * @param symbole	symbole de la carte dont on veut afficher
      * @return	l'image de la carte demand�e
      * @throws SlickException	exception offerte par la librairie Slick2D
@@ -46,7 +46,7 @@ public class Sprite {
     }
 
     /**
-     * retourne la sprite de la carte ayant le nom pass� en param�tre
+     *devuelve el sprite del mapa con el nombre pasado como parámetro
      * @param spriteName nom de la carte dont on veut afficher
      * @return	l'image de la carte demand�e
      * @throws SlickException	exception offerte par la librairie Slick2D
@@ -58,7 +58,7 @@ public class Sprite {
     }
 
     /**
-     * retourne la sprite de la carte ayant le symbole et la couleur pass�s en param�tres
+     *devuelve el sprite del mapa que tiene el símbolo y el color pasados ​​en los parámetros
      * @param symbole	symbole de la carte dont on veut afficher
      * @param couleur	couleur de la carte dont on veut afficher
      * @return	l'image de la carte demand�e
@@ -101,7 +101,7 @@ public class Sprite {
     }
 
     /**
-     * retourne la sprite de la carte ayant la valeur et la couleur pass�s en param�tres
+     * devuelve el sprite del mapa que tiene el valor y el color pasado en parámetros
      * @param valeur	valeur de la carte dont on veut afficher
      * @param couleur	couleur de la carte dont on veut afficher
      * @return	l'image de la carte demand�e
@@ -129,8 +129,7 @@ public class Sprite {
         return get( valeur + "-" + nomCouleur );
     }
 
-    /**
-     * retourne la sprite / image grise transparente � ajouter au dessus des cartes non jouables !
+    /*** ¡Devuelve un sprite/imagen gris transparente para agregar encima de los mapas no jugables!
      * @return	la sprite / image grise transparente � ajouter au dessus des cartes non jouables !
      * @throws SlickException	exception offerte par la librairie Slick2D
      */
@@ -141,7 +140,7 @@ public class Sprite {
     }
 
     /**
-     * retourne la sprite / image de la carte cach�e
+     * devuelve el sprite/imagen del mapa oculto
      * @return	la sprite / image de la carte cach�e
      * @throws SlickException	exception offerte par la librairie Slick2D
      */
@@ -152,7 +151,7 @@ public class Sprite {
     }
 
     /**
-     * retourne la sprite / image de l'arri�re-plan du jeu ( selon la couleur pass�e en param�tre )
+     * devuelve el sprite/imagen del fondo del juego (según el color pasado en el parámetro)
      * @param couleur	la couleur de l'arri�re-plan
      * @return	la sprite / image de l'arri�re-plan du jeu ( selon la couleur pass�e en param�tre )
      * @throws SlickException	exception offerte par la librairie Slick2D
@@ -180,9 +179,9 @@ public class Sprite {
     }
 
     /**
-     * cette m�thode permet de charger toutes les images du jeu
-     * N.B. : TOUTES les images / sprites DOIVENT �tre charg�s � partir du Thread principale ( GL Thread )
-     * sinon on va avoir l'exception suivante : java.lang.RuntimeException: No OpenGL context found in the current thread.
+     * este método permite cargar todas las imágenes del juego
+      * N.B.: TODAS las imágenes/sprites DEBEN cargarse desde el subproceso principal (subproceso GL)
+      * de lo contrario tendremos la siguiente excepción: java.lang.RuntimeException: No se encontró contexto OpenGL en el hilo actual.
      * @throws SlickException	exception offerte par la librairie Slick2D
      */
     public static void load() throws SlickException {
@@ -197,13 +196,13 @@ public class Sprite {
             // cartes +2
             imageFileName = String.format( "+2-%s", colorName );
             sprites.put( imageFileName, new Image( Config.get( "imgPath" ) + imageFileName + ".png" ) );
-            // cartes passer
+            // cartes pasar
             imageFileName = String.format( "skip-%s", colorName );
             sprites.put( imageFileName, new Image( Config.get( "imgPath" ) + imageFileName + ".png" ) );
-            // cartes inverser
+            // cartes invertir
             imageFileName = String.format( "reverse-%s", colorName );
             sprites.put( imageFileName, new Image( Config.get( "imgPath" ) + imageFileName + ".png" ) );
-            // sprites / images de l'arri�re-plan
+            // sprites / imágenes de fondo
             imageFileName = String.format( "bg-%s", colorName );
             sprites.put( imageFileName, new Image( Config.get( "imgPath" ) + imageFileName + ".png" ) );
         }
@@ -213,10 +212,10 @@ public class Sprite {
         // cartes +4
         imageFileName = "+4";
         sprites.put( imageFileName, new Image( Config.get( "imgPath" ) + imageFileName + ".png" ) );
-        // carte cach�e ( le dos d'une carte )
+        // tarjeta oculta (el reverso de una tarjeta)
         imageFileName = "hidden";
         sprites.put( imageFileName, new Image( Config.get( "imgPath" ) + imageFileName + ".png" ) );
-        // carte non jouable ( filtre transparent gris )
+        // mapa no jugable (filtro gris transparente)
         imageFileName = "inactiveCard";
         sprites.put( imageFileName, new Image( Config.get( "imgPath" ) + imageFileName + ".png" ) );
     }

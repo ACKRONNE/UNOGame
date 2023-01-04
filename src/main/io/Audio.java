@@ -9,14 +9,13 @@ import org.newdawn.slick.Sound;
 import main.common.Config;
 
 /**
- * classe responsable de jouer les sons du jeu
- * @author Stoufa
+ *clase responsable de reproducir los sonidos del juego
  *
  */
 public class Audio {
 
     /**
-     * son de l'arriére-plan
+     * son de l'arriï¿½re-plan
      */
     private static Music                  music;
     /**
@@ -29,7 +28,7 @@ public class Audio {
      * @throws SlickException exception de la librairie slick2d
      */
     public static void load() throws SlickException {
-        if ( soundEnabled ) { // si les sons sont autorisés
+        if ( soundEnabled ) { // si les sons sont autorisï¿½s
             String soundNames[] = {
                     "clickSound", "invalidClickSound", "unoSound",
                     "skipSound", "reverseSound", "plus2Sound",
@@ -46,13 +45,13 @@ public class Audio {
     }
 
     /**
-     * musique autorisée ?
+     * musique autorisï¿½e ?
      * true -> oui
      * false -> non
      */
     public static boolean musicEnabled = true;
     /**
-     * sons autorisées ?
+     * sons autorisï¿½es ?
      * true -> oui
      * false -> non
      */
@@ -64,7 +63,7 @@ public class Audio {
      * @throws SlickException exception de la librairie slick2d
      */
     public static void playSound( String soundName ) throws SlickException {
-        if ( soundEnabled ) { // si les sons sont autorisés
+        if ( soundEnabled ) { // si les sons sont autorisï¿½s
             sounds.get( soundName ).play(); // jouer le son
         }
     }
@@ -74,18 +73,18 @@ public class Audio {
      * @throws SlickException exception de la librairie slick2d
      */
     public static void playMusic() throws SlickException {
-        if ( musicEnabled ) { // si la musique est autorisée
+        if ( musicEnabled ) { // si la musique est autorisï¿½e
             music.loop(); // jouer la musique en boucle
         }
     }
 
     /**
-     * permet d'arrêtre la musique
+     * permet d'arrï¿½tre la musique
      * @throws SlickException exception de la librairie slick2d
      */
     public static void stopMusic() throws SlickException {
-        if ( musicEnabled ) { // si la musique est autorisée
-            music.stop(); // arrêtre la musique
+        if ( musicEnabled ) { // si la musique est autorisï¿½e
+            music.stop(); // arrï¿½tre la musique
         }
     }
 }

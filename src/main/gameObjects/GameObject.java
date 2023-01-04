@@ -5,30 +5,30 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 /**
- * Classe abstraite qui représente un objet du jeu
+ * Clase abstracta que representa un objeto de juego.
  * @author Stoufa
  *
  */
 public abstract class GameObject {
 
     /**
-     * positions de l'objet sur l'écran
+     * posiciones de los objetos en la pantalla
      */
     public float x    = 0, y = 0;
     /**
-     * vitesses de déplacement de l'objet
+     * velocidades de movimiento de objetos
      */
     public float velX = 0, velY = 0; // velocity : speed
 
     /**
-     * permet de mettre à jour l'état de l'objet
+     * permite actualizar el estado del objeto
      * @param container
      * @throws SlickException 
      */
     public abstract void update( GameContainer container ) throws SlickException;
 
     /**
-     * permet d'afficher l'état actuel de l'objet
+     * muestra el estado actual del objeto
      * @param g
      * @throws SlickException
      */

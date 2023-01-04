@@ -14,8 +14,7 @@ import main.common.Debug;
 import main.io.Audio;
 
 /**
- * classe repr�sentant un joueur humain
- * @author Stoufa
+ * clase que representa a un jugador humano
  *
  */
 public class Humain extends Joueur {
@@ -26,15 +25,14 @@ public class Humain extends Joueur {
 
 
     /**
-     * @return le pseudo du joueur courant
+     * @return el apodo del jugador actual
      */
     public String getPseudo() {
         return pseudo;
     }
 
     /**
-     * @return cha�ne d�crivant le joueur en cours
-     * le joueur est identifi� par son pseudo
+     * @return cadena que describe al jugador actual * el jugador se identifica por su apodo
      */
     @Override
     public String toString() {
@@ -86,7 +84,7 @@ public class Humain extends Joueur {
     }
 
     /**
-     * permet au joueur de jouer une carte
+     *permite al jugador jugar una carta
      * @throws InterruptedException 
      * @throws UnsupportedLookAndFeelException 
      * @throws IllegalAccessException 
@@ -101,31 +99,30 @@ public class Humain extends Joueur {
 
         System.out.println( "Tienes " + nbCartesJouables() + " cartas jugables" );
 
-        // Ici, on doit attendre le joueur jusqu'a qu'il clique sur une carte jouable !
+        // ¡Aquí, tenemos que esperar al jugador hasta que haga clic en una carta jugable!
         Debug.log( "Esperando un clic..." );
 
         Jeu.countDownLatch = new CountDownLatch( 1 ); // r�initialisation
-        Jeu.countDownLatch.await(); // DOWN : arr�ter le jeu en attendant le clique !
-        // TODO : add blocking loop
+        Jeu.countDownLatch.await(); // DOWN :¡detén el juego mientras esperas el clic!
+        // TODO : añadir bucle de bloqueo
  
 
         Debug.log( "Click received ! ..." );
        
-        if ( main.nbCartes() > 1 && playedCard.couleur == Couleur.NOIR ) { // TODO : ce test doit �tre d�l�gu�e � la classe Jeu
-            // On doit demander une couleur au joueur
+        if ( main.nbCartes() > 1 && playedCard.couleur == Couleur.NOIR ) { // TODO :esta prueba debe ser delegada a la clase Game
+            // Debemos pedirle al jugador un color
             System.out.println( "Debes elegir un color." );
             Couleur couleur = donnerCouleur();
-            // Si elle est de couleur noir, on est s�r qu'elle est sp�ciale !
+            // Si es negro, ¡seguro que es especial!
             ( (CarteSpecial) playedCard ).setCouleur( couleur );
-            // Changer la couleur de l'arri�re-plan
-            // la couleur va �tre mis � jour automatiquement dans la m�thode render()
+            // Cambiar el color de fondo // el color se actualizará automáticamente en el método render()
             //Jeu.changeBackgroundColorTo(couleur);
             if ( ( (CarteSpecial) playedCard ).symbole == Symbole.JOKER ) {
                 Audio.playSound( "wildSound" );
             }
         }
-        main.retirer( playedCard ); // remove the card from the player's hand !
-        talon.empiler( playedCard ); // add it to the discard pile
+        main.retirer( playedCard ); // ¡quita la carta de la mano del jugador!
+        talon.empiler( playedCard ); //añádelo a la pila de descarte
         System.out.println( pseudo + " jugó " + playedCard );
     }
 
@@ -160,12 +157,12 @@ public class Humain extends Joueur {
                         Debug.log( "Card click detected!" );
                         //Jeu.clickReceived = true;	// release the block, MUST BE AFTER SETTING THE CARD OR ELSE NullException !
 
-                        // Puis on doit attendre si la carte est une carte noire !
+                        // ¡Entonces tenemos que esperar si la carta es una carta negra!
 
-                        // si la carte choisie est une carte Noir ( On ne doit pas lib�rer le 
-                        // jeu jusqu'a ce que le joueur choisisse une couleur )
-                        //						if (playedCard.couleur != Couleur.NOIR) {
-                        //						}
+                        // si la carta elegida es una carta Negra (No debemos soltar la
+                        // juego hasta que el jugador elija un color)
+                        // if (cartajugada.color != Color.NEGRO) {
+                        // }
                         // TODO : add a different sound if the card isn't playable :)
                         //carte.jouable = !carte.jouable;	// test
                         System.out.println( carte );

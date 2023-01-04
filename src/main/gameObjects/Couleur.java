@@ -1,8 +1,7 @@
 package main.gameObjects;
 
 /**
- * énumération présentant les couleurs possibles des cartes du jeu uno
- * @author Stoufa
+ * ï¿½nÃºmero que presenta los posibles colores de las cartas del juego uno
  *
  */
 public enum Couleur {
@@ -10,21 +9,21 @@ public enum Couleur {
     ROUGE( "Rouge" ), JAUNE( "Jaune" ), VERT( "Vert" ), BLEU( "Bleu" ), NOIR( "Noir" );
 
     /**
-     * la valeur de la couleur, en fait c'est une chaîne de caractères contenant le nom de la couleur
-     * utile dans la méthode toString()
+     * el valor del color, de hecho es una cadena de caracteres que contiene el nombre del color
+      * Ãºtil en el mÃ©todo toString()
      */
     private String valeur;
 
     /**
      * contructeur
-     * @param valeur : la valeur de la couleur
+     * @param valeur : el valor del color
      */
     private Couleur( String valeur ) {
         this.valeur = valeur;
     }
 
     /**
-     * @return la valeur de la couleur
+     * @return la variable del color
      */
     public String getValeur() {
         return valeur;

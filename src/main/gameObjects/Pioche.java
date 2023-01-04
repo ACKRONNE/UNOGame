@@ -10,35 +10,34 @@ import main.common.Config;
 import main.gfx.Sprite;
 
 /**
- * classe représentant la pioche du jeu
- * @author Stoufa
+ * clase que representa la baraja del juego
  *
  */
 public class Pioche extends Pile {
-    // TODO : on doit traiter le cas où la pioche devient vide et on doit prendre une carte
-    // dans ce cas, on a besoin de mélanger le talon ( sauf le sommet ) et le déposer dans la pioche
+    // TODO : debemos ocuparnos del caso en que la pila de sorteo se vacÃ­e y debemos tomar una carta
+    // en este caso, necesitamos barajar la cola (excepto la parte superior) y colocarla en la pila de sorteo
 
     /**
-     * constructeur : permet de construire la pioche et d'y insérer toutes les cartes nécéssaires
+     * constructeur : le permite construir la pila de sorteo e insertar todas las cartas necesarias en ella
      * @throws SlickException 
      */
     public Pioche() throws SlickException {
         for ( Couleur couleur : Couleur.values() ) {
             if ( couleur == Couleur.NOIR ) {
-                for ( int i = 0; i < 4; i++ ) { // la pioche 4 cartes joker et 4 cartes +4
+                for ( int i = 0; i < 4; i++ ) { // roba 4 cartas comodÃ­n y 4 cartas +4
                     ajouter( new CarteSpecial( Couleur.NOIR, Symbole.JOKER ) );
                     ajouter( new CarteSpecial( Couleur.NOIR, Symbole.PLUS4 ) );
                 }
-                continue; // toutes les cartes noirs sont ajoutées, on passe à la couleur suivante
+                continue; //se agregan todas las cartas negras, pasamos al siguiente color
             }
-            // 1 Carte 0 pour chaque couleur
+            // 1 tarjeta 0 para cada color
             ajouter( new CarteChiffre( couleur, 0 ) );
-            // 2 Cartes 1..9 pour chaque couleur
+            // 2 Tarjetas 1..9 para cada color
             for ( int i = 1; i <= 9; i++ ) {
                 ajouter( new CarteChiffre( couleur, i ) );
                 ajouter( new CarteChiffre( couleur, i ) );
             }
-            // 2 Cartes passer, inverser, +2 pour chaque couleur
+            // 2 Pasar cartas, al revÃ©s, +2 por cada color
             for ( int i = 0; i < 2; i++ ) {
                 ajouter( new CarteSpecial( couleur, Symbole.PASSER ) );
                 ajouter( new CarteSpecial( couleur, Symbole.INVERSER ) );
@@ -50,29 +49,29 @@ public class Pioche extends Pile {
     }
 
     /**
-     * Cette méthode est utilisée pour retourner une carte aléatoirement dans la pioche
-     * dans le cas où la premiére carte est une carte spéciale ( au début du jeu )
+     * Este mÃ©todo se usa para voltear aleatoriamente una carta en la pila de sorteo 
+     * * en caso de que la primera carta sea una carta especial (al comienzo del juego)
      * @param carte
      */
     private void retournerCarte( Carte carte ) {
-        int i = rand.nextInt( cartes.size() ); // Entier aléatoire entre 0 et cartes.size() - 1
+        int i = rand.nextInt( cartes.size() ); // Entier alï¿½atoire entre 0 et cartes.size() - 1
         cartes.add( i, carte );
     }
 
     /**
-     * cette méthode est appelée par le talon pour qu'elle lui retourne sa premiére carte
-     * la carte ne doit pas être spéciale
+     * este metodo es llamado por el heel para que devuelva su primera carta
+      * la tarjeta no debe ser especial
      * @return
      */
     public Carte premiereCarteTalon() {
         Carte carte;
         while ( true ) {
-            carte = depiler(); // Retirer une carte
+            carte = depiler(); // Quitar una tarjeta
             //Debug.log(carte.toString());
-            if ( carte instanceof CarteSpecial ) { // C'est une carte spéciale
-                // Il faut dans ce cas la rajouter aléatoirement dans la pioche
+            if ( carte instanceof CarteSpecial ) { // es una carta especial
+                // En este caso, debe agregarse aleatoriamente a la pila de sorteo.
                 retournerCarte( carte );
-                //System.out.println("Oops carte spécial , ...");
+                //System.out.println("Oops carte spï¿½cial , ...");
                 //System.out.println(carte);
             } else {
                 return carte;
@@ -81,7 +80,7 @@ public class Pioche extends Pile {
     }
 
     /**
-     * la méthode responsable d'afficher la pioche sur l'écran
+     * el mÃ©todo responsable de mostrar el pico en la pantalla
      * @param g
      * @throws SlickException 
      */
@@ -100,7 +99,7 @@ public class Pioche extends Pile {
         carteSommet.angle = 0;
         carteSommet.updateBounds();
 
-        // Pour voir à peu prés combien y en a de cartes
+        // Pour voir ï¿½ peu prï¿½s combien y en a de cartes
         float yVal = carteSommet.y;
         for ( int i = 0; i < cartes.size(); ++i ) {
             g.drawImage( image, carteSommet.x, yVal );
@@ -117,7 +116,7 @@ public class Pioche extends Pile {
                 Game.WIDTH / 2 + Integer.parseInt( Config.get( "offsetPiocheTalon" ) )
                         - g.getFont().getWidth( str ) / 2,
                 // a little bit above the last card
-                yVal - offset // pour que ça soit prés de la carte du sommet de la pile
+                yVal - offset // pour que ï¿½a soit prï¿½s de la carte du sommet de la pile
         //Game.HEIGHT / 2 - Carte.HEIGHT / 2 - offset
         );
     }

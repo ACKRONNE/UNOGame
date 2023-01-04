@@ -3,14 +3,13 @@ package main.gameObjects;
 import java.util.ArrayList;
 
 /**
- * cette classe représente la main de chaque joueur
- * @author Stoufa
+ * esta clase representa la mano de cada jugador
  *
  */
 public class Main {
 
     /**
-     * l'ensemble des cartes dans la main
+     * todas las cartas en la mano
      */
     protected ArrayList<Carte> cartes;
 
@@ -22,17 +21,17 @@ public class Main {
     }
 
     /**
-     * permet d'ajouter une carte à la main
-     * @param carte : la carte à ajouter
+     * te permite aÃ±adir una carta a la mano
+     * @param carte :la tarjeta para agregar
      */
     public void ajouter( Carte carte ) {
         cartes.add( carte );
     }
 
     /**
-     * permet de retirer une carte de la main
-     * @param num : l'indice de la carte à retirer dans la liste
-     * @return la carte retirée
+     *quita una carta de la mano
+     * @param num : el Ã­ndice de la tarjeta que se eliminarÃ¡ de la lista
+     * @return tarjeta eliminada
      */
     public Carte retirer( int num ) {
         return cartes.remove( num );
@@ -45,15 +44,15 @@ public class Main {
     */
 
     /**
-     * permet de retourner l'ensemble des cartes dans la main
-     * @return l'ensemble des cartes dans la main
+     * te permite voltear todas las cartas en tu mano
+     * @return todas las cartas en la mano
      */
     public ArrayList<Carte> getCartes() {
         return cartes;
     }
 
     /**
-     * @return le nombre de cartes dans la main
+     * @return el nÃºmero de cartas en la mano
      */
     public int nbCartes() {
         return cartes.size();
@@ -69,7 +68,7 @@ public class Main {
     }
 
     /**
-     * removes the card from the hand
+     * quita la carta de la mano
      * @param playedCard
      */
     public void retirer( Carte playedCard ) {

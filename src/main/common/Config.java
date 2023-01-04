@@ -113,7 +113,7 @@ public class Config {
             OutputStream os = new FileOutputStream( configFilePath );
             p.store( os, null );
         } catch ( IOException e ) {
-            Debug.err( "Fichier introuvable: " + configFilePath );
+            Debug.err( "Archivo no encontrado: " + configFilePath );
         }
     }
 }

@@ -3,45 +3,44 @@ package main.gameObjects;
 import java.util.Random;
 
 /**
- * cette classe présente les fonctionnalités communes entre la pioche et le talon
- * @author Stoufa
+ *esta clase presenta las caracterÃ­sticas comunes entre el pico y el talÃ³n
  *
  */
 public class Pile extends Main {
 
     /**
-     * générateur de valeurs aléatoires
+     * generador de valores aleatorios
      */
     protected Random rand = new Random();
 
     /**
-     * permet de dépiler le sommet de la pile
-     * @return la carte supprimée
+     *aparece la parte superior de la pila
+     * @return la carte supprimï¿½e
      */
     public Carte depiler() {
         return cartes.remove( 0 );
     }
 
     /**
-     * permet d'empiler une carte
-     * @param carte : la carte à empiler
+     * te permite apilar una carta
+     * @param carte : la carte ï¿½ empiler
      */
     public void empiler( Carte carte ) {
         cartes.add( 0, carte );
     }
 
     /**
-     * permet de mélanger la pile (shuffle) en utilisant l'algorithme : Mélange de Fisher-Yates
+     * permite barajar la pila usando el algoritmo: Fisher-Yates shuffle
      * @see https://fr.wikipedia.org/wiki/M%C3%A9lange_de_Fisher-Yates
-     * académiquement parlant, on ne peut pas mélanger une pile ! mais dans ce contexte, la pile n'est
-     * pas une structure FIFO ( First In First Out ) ordinaire, on peut la mélanger
-     * c'est une méthode commune entre les classes Pioche et Talon
+     * acadÃ©micamente hablando, Â¡no puedes mezclar una pila! pero en este contexto, la pila no es
+     * no es una estructura FIFO (primero en entrar, primero en salir) ordinaria, podemos mezclarla
+      * este es un mÃ©todo comÃºn entre las clases Pickaxe y Talon
      */
     public void melanger() {
         for ( int i = cartes.size() - 1; i > 0; i-- ) {
-            // Permuter une carte aléatoire entre la première
-            // et la dernière carte de la boucle
-            int pick = rand.nextInt( i ); // entier aléatoire entre 0 et i - 1
+        	// Intercambiar una tarjeta aleatoria entre la primera 
+        	// y la Ãºltima tarjeta en el ciclo
+            int pick = rand.nextInt( i ); // entero aleatorio entre 0 y i - 1
             Carte randCard = cartes.get( pick );
             Carte lastCard = cartes.get( i );
             cartes.set( i, randCard );
@@ -50,7 +49,7 @@ public class Pile extends Main {
     }
 
     /**
-     * @return une chaîne de caratères représentant la pile courante
+     * @return una cadena que representa la pila actual
      */
     @Override
     public String toString() {
@@ -58,13 +57,13 @@ public class Pile extends Main {
     }
 
     /**
-     * @return le sommet de la pile
+     * @return la parte superior de la pila
      */
     public Carte sommet() {
         if ( cartes.isEmpty() ) {
             return null;
         }
-        return cartes.get( 0 ); // Retourne le sommet de la pile ( sans le supprimer )
+        return cartes.get( 0 ); // Devuelve la parte superior de la pila (sin eliminarla)
     }
 
 }

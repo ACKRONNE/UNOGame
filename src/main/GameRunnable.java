@@ -30,7 +30,7 @@ public class GameRunnable implements Runnable {
     @Override
     public void run() {
         try {
-            jeu.lancer( sbg ); // lancer le jeu
+            jeu.lancer( sbg ); // launch the game
         } catch ( Exception e ) {
             e.printStackTrace();
         }

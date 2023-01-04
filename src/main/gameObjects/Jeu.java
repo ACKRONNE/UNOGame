@@ -24,51 +24,49 @@ import main.states.GameOverState;
 /**
  * clase que representa el juego, es responsable del progreso del juego seguido
   * el significado del juego, la activación de efectos especiales, ...
-  *
- * @author Stoufa
  *
  */
 public class Jeu {
     /**
-     * la pioche
+     * La punta
      */
     private Pioche               pioche;
     /**
-     * le talon
+     * talon 
      */
     private Talon                talon;
     /**
-     * le nombre de joueurs ( doit �tre entre 2 et 4 )
+     * el número de jugadores (debe estar entre 2 y 4)
      */
     private int                  nbJoueurs;
     /**
-     * la liste des joueurs
+     * Lista de jugadores
      */
     private Joueur[]             joueurs;
     /**
-     * le sens du jeu, peut avoir deux valeurs possibles : -1 de droite �
-     * gauche, 1 de gauche � droite [0] + (1) -> [1] ... [1] + (-1) -> [0] ...
+     * la dirección de juego, puede tener dos valores posibles: -1 por la derecha �
+      * izquierda, 1 de izquierda a derecha [0] + (1) -> [1] ... [1] + (-1) -> [0] ...
      */
-    private int                  sens  = -1;                 // par d�faut � gauche
+    private int                  sens  = -1;                 //predeterminado a la izquierda
     /**
-     * l'indice du joueur courant, initialement le premier
+     * el índice del reproductor actual, inicialmente el primero
      */
     static int                   tour  = 0;
     /**
-     * l'objet Joueur � l'indice indiceJoueurCourant du tableau joueurs
+     * el objeto Player en el índice PlayerCurrent índice de la tabla de jugadores
      */
     public static Joueur         joueurCourant;
     /**
-     * entier qui contient l'identifiant du joueur actuel
+     * entero que contiene el id del jugador actual
      */
     //public static int tour = 1;
     static Input                 input = null;
     /**
-     * utilis� pour arr�ter le jeu jusqu'a ce que le joueur clique sur une carte !
+     * utilizado� para detener el juego hasta que el jugador haga clic en una carta!
      */
     static CountDownLatch        countDownLatch;
     /**
-     * utilis� pour attendre la couleur choisie par le joueur
+     * solía esperar el color elegido por el jugador
      */
     public static CountDownLatch waitForDialogCountDownLatch;
     //	public static boolean clickReceived;
@@ -124,58 +122,58 @@ public class Jeu {
                     joueurSuivant();
                     continue;
                 }
-                if ( ( (CarteSpecial) talon.sommet() ).getSymbole() == Symbole.PLUS2 ) { // le joueur pr�c�dant a jou� +2
-                    // le joueur courant doit piocher 2 cartes
+                if ( ( (CarteSpecial) talon.sommet() ).getSymbole() == Symbole.PLUS2 ) { //el jugador anterior jugó +2
+                    // el jugador actual debe sacar 2 cartas
                     System.out.println( joueurCourant.pseudo
                             + " debe robar 2 cartas y saltarse su turno -> efecto de carta " + talon.sommet() );
                     Audio.playSound( "plus2Sound" );
                     for ( int i = 0; i < 2; i++ ) {
                         joueurCourant.prendreCarte();
                     }
-                    // et passer son tour
+                    // y pasar
                     joueurSuivant();
                     continue;
                 }
-                if ( ( (CarteSpecial) talon.sommet() ).getSymbole() == Symbole.PLUS4 ) { // le joueur pr�c�dant a jou� +4
-                    // le joueur courant doit piocher 4 cartes
+                if ( ( (CarteSpecial) talon.sommet() ).getSymbole() == Symbole.PLUS4 ) { //el jugador anterior jugó +4
+                    // el jugador actual debe sacar 4 cartas
                     System.out.println( joueurCourant.pseudo
                             + " debe robar 4 cartas y pasar turno -> efecto de carta " + talon.sommet() );
                     Audio.playSound( "plus4Sound" );
                     for ( int i = 0; i < 4; i++ ) {
                         joueurCourant.prendreCarte();
                     }
-                    // et passer son tour
+                    // y pasar
                     joueurSuivant();
                     continue;
                 }
             }
             joueurCourant.jouerTour();
             Debug.log( "======== Fin de Ronda ========" );
-            // TODO : on doit mettre � jour les cartes des mains des joueurs apr�s chaque tour ! ( jouabilit� ! )
+            // TODO : ¡Las cartas de mano de los jugadores deben actualizarse después de cada ronda! (jugabilidad!)
             updatePlayersHands();
 
-            if ( joueurCourant.nbCartes() == 0 ) { // on teste si le joueur courant a vid� sa main
+            if ( joueurCourant.nbCartes() == 0 ) { // probamos si el jugador actual ha vaciado su mano
                 System.out.println( joueurCourant.pseudo + " ¡ganado!" );
                 Audio.playSound( "winSound" );
                 break;
             }
-            if ( joueurCourant.nbCartes() == 1 ) { // on teste si le joueur courant lui reste une seule carte ( UNO ! ) dans sa main
+            if ( joueurCourant.nbCartes() == 1 ) { // probamos si al jugador actual solo le queda una carta (¡UNO!) en su mano
                 System.out.println( joueurCourant.pseudo + " <UNO!>" );
                 Audio.playSound( "unoSound" );
             }
-            // On doit tester ici si le joueur a des doublons de la carte jou�e TODO
-            // On doit tester la carte inverser � ce niveau
-            if ( joueurCourant.playedCard != null && talon.sommet() instanceof CarteSpecial ) { // le joueur courant a jou� une carte sp�ciale
-                // le test sur la carte jou�e pour ne pas inverser le sens encore une fois dans le cas ou 
-                // un joueur � invers� le sens et le joueur suivant n'a pas de cartes jouables ! sans ce 
-                // test le sens va �tre invers� encore une fois !
-                effetSpecial = true; // activer l'effet sp�cial
+            // Debemos probar aquí si el jugador tiene duplicados de la carta jugada TODO
+            // Debemos probar el mapa inverso en este nivel
+            if ( joueurCourant.playedCard != null && talon.sommet() instanceof CarteSpecial ) { // el jugador actual ha jugado una carta especial
+                // la prueba en la carta jugada para no volver a invertir la dirección en el caso de que
+                // ¡un jugador ha invertido y el siguiente jugador no tiene cartas jugables! sin esto
+                // probar la dirección se invertirá de nuevo!
+                effetSpecial = true; // activar el efecto especial
                 if ( ( (CarteSpecial) talon.sommet() ).getSymbole() == Symbole.INVERSER ) {
-                    // le joueur courant � invers� le sens
+                	// el jugador actual ha invertido la dirección
                     System.out.println( joueurCourant.pseudo + " invirtió la dirección del juego" );
                     Audio.playSound( "reverseSound" );
-                    sens *= -1; // la valeur de sens est soit 1 soit -1, on multiplie par -1 pour changer
-                    effetSpecial = false; // l'effet sp�cial est activ� dans ce cas
+                    sens *= -1; // el valor del significado es 1 o -1, multiplicamos por -1 para cambiar
+                    effetSpecial = false; // el efecto especial se activa en este caso
                 }
             }
             joueurSuivant();
@@ -188,46 +186,46 @@ public class Jeu {
     }
 
     /**
-     * mise � jour de la jouabilit� des cartes des joueurs
+     * jugabilidad actualizada del mapa del jugador
     * @param joueurCourant 
      */
     private void updatePlayersHands() {
-        for ( Joueur joueur : joueurs ) { // Pour chaque joueur ...
-            for ( Carte carte : joueur.main.cartes ) { // On parcourt ses cartes ...
-                // Et on les met � jour ( jouabilit� avec la carte du sommet du talon )
+        for ( Joueur joueur : joueurs ) { // Para cada jugador...
+            for ( Carte carte : joueur.main.cartes ) { // Repasamos sus cartas...
+            	// Y los actualizamos (jugabilidad con el mapa de la parte superior del talón)
                 carte.jouable = carte.compatible( talon.sommet() );
             }
         }
     }
 
     /**
-     * permet de passer au joueur suivant selon le sens du jeu
+     *te permite pasar al siguiente jugador según la dirección del juego
      */
     private void joueurSuivant() {
-        // avancer vers le joueur suivant
+        // avanzar al siguiente jugador
         tour += sens;
-        // On doit v�rifier si l'indice a d�passer les bornes du tableau
+        //Debemos verificar si el índice d excede los límites de la tabla
         if ( tour < 0 ) {
             tour += nbJoueurs;
-            // exemple : 3 joueurs -> [ 0 , 1 , 2 ]
-            // 0 + (-1) = -1 < 0 -> -1 + 3 -> 2 ( dernier joueur )
+            //ejemplo: 3 jugadores -> [ 0 , 1 , 2 ]
+            // 0 + (-1) = -1 < 0 -> -1 + 3 -> 2 (último jugador)
         }
         if ( tour > nbJoueurs - 1 ) { // indice >= nbJoueurs
             tour -= nbJoueurs;
-            // exemple : 3 joueurs -> [ 0 , 1 , 2 ]
-            // 2 + (1) = 3 > 2 -> 3 - 3 -> 0 ( premier joueur )
+            // ejemplo : 3 jugadores -> [ 0 , 1 , 2 ]
+            // 2 + (1) = 3 > 2 -> 3 - 3 -> 0 ( primer jugador )
         }
     }
 
     public void update( GameContainer container ) throws SlickException {
         input = container.getInput();
-        for ( int i = 0; i < joueurs.length; i++ ) { // mettre � jour l'�tat des joueurs
+        for ( int i = 0; i < joueurs.length; i++ ) { // actualizar el estado del jugador
             joueurs[i].update( container );
         }
     }
 
     /**
-     * permet d'afficher les mises � jour sur le jeu
+     * te permite ver actualizaciones en el juego
      * 
      * @param g
      * @throws SlickException
@@ -235,7 +233,7 @@ public class Jeu {
     public void render( Graphics g ) throws SlickException {
         changeBackgroundColorTo( talon.sommet().couleur );
 
-        for ( int i = 0; i < joueurs.length; i++ ) { // affichage des joueurs
+        for ( int i = 0; i < joueurs.length; i++ ) { //exhibición de jugadores
             joueurs[i].render( g );
         }
 
@@ -296,7 +294,7 @@ public class Jeu {
             break;
         }
 
-        // 1er joueur Humain, les autres sont des Bots
+        // 1er jugador Humano, los otros son Bots
         for ( int i = 0; i < nbJoueurs; i++ ) {
             //String pseudoJoueur = Config.get("j" + i);	// getting player names
             //joueurs[i] = new Humain(pseudoJoueur, pioche, talon);
@@ -316,7 +314,7 @@ public class Jeu {
         }
 
         /*
-        // Tous les joueurs sont des humains
+        // Todos los jugadores son humanos.
         for (int i = 0; i < nbJoueurs; i++) {
         	String pseudoJoueur = JOptionPane.showInputDialog( String.format("pseudo (%d) ? >> ", i + 1) );
         	joueurs[i] = new Humain(pseudoJoueur, pioche, talon);
@@ -325,8 +323,8 @@ public class Jeu {
         }
         */
 
-        for ( int i = 0; i < joueurs.length; i++ ) { // Distirbution des cartes
-            for ( int j = 0; j < 7; j++ ) { // Chaque joueur va prendre 7 cartes
+        for ( int i = 0; i < joueurs.length; i++ ) { // distribución de cartas
+            for ( int j = 0; j < 7; j++ ) { //Cada jugador tomará 7 cartas.
                 joueurs[i].prendreCarte();
             }
         }

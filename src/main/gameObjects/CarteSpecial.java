@@ -6,14 +6,13 @@ import org.newdawn.slick.SlickException;
 import main.gfx.Sprite;
 
 /**
- * cette classe repr�sente les cartes sp�ciales du jeu : +2, +4, joker, inverser, passer
- * @author Stoufa
+ * esta clase representa las cartas especiales del juego: +2, +4, joker, reverse, pass
  *
  */
 public class CarteSpecial extends Carte {
 
     /**
-     * symbole de la carte
+     * simbolo de la carta
      * @see Symbole
      */
     public Symbole symbole;
@@ -31,7 +30,7 @@ public class CarteSpecial extends Carte {
     }
 
     /**
-     * retourne une cha�ne contenant la repr�sentation de la carte 
+     * devuelve una cadena que contiene la representación de la carta 
      */
     @Override
     public String toString() {
@@ -39,42 +38,41 @@ public class CarteSpecial extends Carte {
     }
 
     /**
-     * @return true : si la carte courante est compatible avec celle pass�e en param�tre (��d : jouable)
-     * @return false : sinon
-     * @param carte : la carte � comparer avec l'objet courant
+     * @return true : si la tarjeta actual es compatible con la pasada en parámetro (��d: jugable)
+     * @return false : si no
+     * @param carte : Compara la carta con el objeto actual
      */
     @Override
     public boolean compatible( Carte carte ) {
         if ( couleur == Couleur.NOIR ) {
-            return true; // Les cartes noirs ( nottament le Joker et la carte +4 )
-            // peuvent �tre d�pos�e sur n'importe qu'elle autre carte
+            return true; // Cartas negras (en particular, el comodín y la carta +4)
+            // se puede depositar en cualquier otra tarjeta
         }
         if ( carte instanceof CarteSpecial ) { //	CarteSpecial
-            // m�me couleur ou m�me symbole ?
+            //mismo color o mismo símbolo?
             return ( carte.couleur == couleur ) || ( ( (CarteSpecial) carte ).symbole == symbole ); // m�me couleur ou m�me symbole
         } else { // CarteChiffre
-            // m�me couleur ?
-            return carte.couleur == couleur; // m�me couleur
+            // ¿el mismo color?
+            return carte.couleur == couleur; // el mismo color
         }
     }
 
     /**
-     * permet de changer la couleur de la carte sp�ciale et ceci n'est possible
-     * que si la couleur initiale de la carte est NOIR
-     * @param couleur : peut �tre ROUGE, JAUNE, VERT ou BLEU
+     * permite cambiar el color de la carta especial y esto solo es posible * si el color inicial de la carta es NEGRO
+     * @param couleur : Colores ROUGE, JAUNE, VERT ou BLEU
      */
     public void setCouleur( Couleur couleur ) {
-        // TODO : changer cette m�thode pour qu'elle change la couleur de l'arri�re-plan du jeu
+        // TODO : cambia este método para cambiar el color del fondo del juego
         if ( this.couleur == Couleur.NOIR ) {
-            // On ne peut changer la couleur que quand la couleur initiale de
-            // la carte est noire : Joker ou +4
+            //Solo puede cambiar el color cuando el color inicial de
+            // la carta es negra: comodín o +4
             this.couleur = couleur;
         }
     }
 
     /**
-     * permet de retourner le symbole de la carte sp�ciale
-     * @return le symbole de la carte sp�ciale
+     *voltea el símbolo de la carta especial
+     * @return El simbolo de la carta especial
      */
     public Symbole getSymbole() {
         return symbole;

@@ -12,11 +12,6 @@ import org.newdawn.slick.SlickException;
 import main.common.Debug;
 import main.gfx.Sprite;
 
-/**
- * cette classe regroupe les aspets communs de toutes les cartes
- * @author Stoufa
- *
- */
 public abstract class Carte extends GameObject {
 
     /**
@@ -51,7 +46,7 @@ public abstract class Carte extends GameObject {
 
     /**
      * constructeur
-     * @param couleur : la couleur de la carte
+     * @param couleur : color de la carta
      */
     public Carte( Couleur couleur ) {
         this.couleur = couleur;

@@ -14,46 +14,46 @@ import main.gfx.Sprite;
 import main.io.Audio;
 
 /**
- * cette classe repr�sente le joueur : ce qu'il a et ce qu'il peut faire, ��d ses propri�t�s et ses actions
+ * esta clase representa al jugador: lo que tiene y lo que puede hacer, sus propiedades y sus acciones
  * @author Stoufa
  *
  */
 public abstract class Joueur extends GameObject {
 
     /**
-     * la main du joueur contenant toutes ses cartes
+     * la mano del jugador que contiene todas sus cartas
      */
     public Main     main;
     /**
-     * le pseudo du joueur
+     * el apodo del jugador
      */
     public String   pseudo;
     /**
-     * la pioche : la pile des cartes o� le joueur peut prendre des cartes dans le cas o� il n'a pas de cartes jouables
+     * la pila de sorteo: la pila de cartas donde el jugador puede tomar cartas si no tiene cartas jugables
      */
     public Pioche   pioche;
     /**
-     * le talon : la pile des cartes o� les joueurs d�pose leurs cartes
+     * la pila de reserva: la pila de cartas donde los jugadores colocan sus cartas
      */
     public Talon    talon;
     /**
-     * la position du joueur sur l'�cran : haut, bas, droite, gauche
+     * la posición del jugador en la pantalla: arriba, abajo, derecha, izquierda
      */
     public Position position;
     /**
-     * identifiant du joueur
+     * identificación del jugador
      */
     public int      id;
     /**
-     * la carte jou�e
+     * la carta jugada
      */
     public Carte    playedCard;
 
     /**
      * contructeur
-     * @param pseudo : pseudo du joueur
-     * @param pioche : la pioche
-     * @param talon : le talon
+     * @param pseudo : apodo del jugador
+     * @param pioche : La pila
+     * @param talon : El talon
      */
     public Joueur( String pseudo, Pioche pioche, Talon talon ) {
         this.pseudo = pseudo;
@@ -63,20 +63,20 @@ public abstract class Joueur extends GameObject {
     }
 
     /**
-     * permet de prender une carte de la pioche et l'ajouter � la main du joueur
-     * @return la carte tir�e
+     * le permite tomar una carta de la pila de robo y agregarla a la mano del jugador
+     * @return la carta dibujada
      */
     public Carte prendreCarte() {
-        if ( pioche.nbCartes() == 0 ) { // la pioche est vide !
-            // TODO : on peut ajouter une animation ici
+        if ( pioche.nbCartes() == 0 ) { // ¡la pila de sorteo está vacía!
+            // TODO : puedes agregar una animación aquí
             System.out.println( "¡La pila de sorteo está vacía!" );
-            // dans ce cas, on doit utiliser le talon ( sauf le sommet ) pour la populer de nouveau
+            // en este caso, debemos usar el heel (excepto el top) para poblarlo nuevamente
             Carte sommetTalon = talon.depiler();
-            while ( talon.nbCartes() != 0 ) { // cette boucle va vider le talon dans la pioche
+            while ( talon.nbCartes() != 0 ) { // este lazo vaciará el talón en el pico
                 pioche.empiler( talon.depiler() );
             }
             pioche.melanger();
-            talon.empiler( sommetTalon ); // remettre le sommet du talon
+            talon.empiler( sommetTalon ); // volver a colocar la parte superior del talón
         }
         //Debug.log("pioche: " + pioche.nbCartes());
         Carte carte = pioche.depiler();
@@ -85,28 +85,28 @@ public abstract class Joueur extends GameObject {
     }
 
     /**
-     * cette m�thode permet d'afficher les cartes dans la main du joueur courant
-     * 2 cas possibles :
-     * 		(1) nombre de cartes paire : on a n cartes, n / 2 sont font des rotations de t, 2t, 3t, ...
-     * 		et les n / 2 font des rotation de -t, -2t, -3t, ... avec t l'angle de rotation qui va d�pendre 
-     * 		du nombre de cartes dans la main
-     * 		(2) nombre de cartes impaire : on a n + 1 cartes, la carte au milieu reste tel quelle sans rotation
-     * 		les n / 2 cartes � sa droite subissent des rotations de t, 2t, 3t, ..., (n / 2)t
-     * 		et les n / 2 cartes � sa gauche subissent des rotations de -t, -2t, -3t, ...., -(n / 2)t
+     * este método muestra las cartas en la mano del jugador actual
+      * 2 casos posibles:
+      *(1) número de cartas pares: tenemos n cartas, n/2 se rotan por t, 2t, 3t,...
+      * y los n/2 hacen rotaciones de -t, -2t, -3t, ... con t el ángulo de rotación del cual dependerá
+      * el número de cartas en la mano
+      * (2) número impar de cartas: tenemos n + 1 cartas, la carta del medio se queda como está sin rotación
+      * las n/2 cartas a su derecha sufren rotaciones de t, 2t, 3t, ..., (n/2)t
+      * y las n/2 cartas a su izquierda sufren rotaciones de -t, -2t, -3t, ...., -(n/2)t
      * @throws SlickException 
      */
     public void afficherMain( Graphics g ) throws SlickException {
         ArrayList<Carte> cartes = main.getCartes();
         int indiceCarteMilieu = cartes.size() / 2;
 
-        // le dessin / rendering des cartes doit �tre dans un sens fix� ( de gauche � droite )
-        // pour utiliser le sens inverse dans la d�t�ction du click
+     // el dibujo / representación de las cartas debe ser en una dirección fija (de izquierda a derecha) 
+     // usar la dirección opuesta en la detección de clic
 
         float coefficientAngle;
         Carte carte;
 
         float initialX = JoueurPainter.getStartPosX( position ), initialY = JoueurPainter.getStartPosY( position );
-        // TODO : l'angle et l'offset doivent �tre proportionelles au nombre de cartes
+        // TODO : el ángulo y el desplazamiento deben ser proporcionales al número de tarjetas
         float angle = 10;
         float offset = 30;
         if ( cartes.size() < 10 ) {
@@ -214,16 +214,15 @@ public abstract class Joueur extends GameObject {
     }
 
     /**
-     * contrairement � nbCartesJouables(), cette fonction doit �tre publique
-     * les autres joueurs peuvent voir combien vous avez de cartes dans la main
-     * @return le nombre de cartes que poss�de le joueur dans sa main
+     * a diferencia de nb Playable Cards(), esta función debe ser pública * otros jugadores pueden ver cuántas cartas tienes en la mano
+     * @return el número de cartas que el jugador tiene en su mano
      */
     public int nbCartes() {
         return main.nbCartes();
     }
 
     /**
-     * cette m�thode permet d'afficher les cartes dans la main du joueur courant
+     * este método muestra las cartas en la mano del jugador actual
      */
     public void afficherMain() {
         String str = "";
@@ -245,7 +244,7 @@ public abstract class Joueur extends GameObject {
     }
 
     /**
-     * cette m�thode doit �tre priv� ! seul le joueur doit conna�tre combien il a de cartes jouables !
+     * este método debe ser tomado! ¡solo el jugador debe saber cuántas cartas jugables tiene!
      * @return le nombre de cartes jouables ��d : compatibles avec le sommet du talon 
      */
     protected int nbCartesJouables() {
@@ -265,7 +264,7 @@ public abstract class Joueur extends GameObject {
     }
 
     /**
-     * permet d'attendre un peu pour que l'utilisateur arrive � lire le message affich�
+     * le permite esperar un poco a que el usuario pueda leer el mensaje mostrado
      */
     private void pause() {
         try {
@@ -276,7 +275,7 @@ public abstract class Joueur extends GameObject {
     }
 
     /**
-     * permet au joueur de jouer son tour
+     * permite que el jugador tome su turno
      * @throws InterruptedException 
      * @throws UnsupportedLookAndFeelException 
      * @throws IllegalAccessException 
@@ -285,24 +284,24 @@ public abstract class Joueur extends GameObject {
      * @throws SlickException 
      */
     public void jouerTour() throws InterruptedException, ClassNotFoundException, InstantiationException,
-            IllegalAccessException, UnsupportedLookAndFeelException, SlickException { // TODO : ajouter le cas o� on a des doublons ! on doit se d�barasser de toutes les occurences de la carte jou�e !
+            IllegalAccessException, UnsupportedLookAndFeelException, SlickException { // TODO : agregue el caso donde hay duplicados! ¡Debemos deshacernos de todas las ocurrencias de la carta jugada!
         playedCard = null;
         talon.afficherSommet();
-        afficherMain(); // sur la console
+        afficherMain(); // en la consola
         if ( nbCartesJouables() == 0 ) {
             System.out.println( "¡No tienes cartas jugables! debes dibujar!" );
             Audio.playSound( "noPlayableCardsSound" );
             pause();
             Carte c = prendreCarte();
             System.out.println( "La carte pioch�e est : " + c );
-            if ( !c.compatible( talon.sommet() ) ) { // la carte r�cemment pioch�e n'est pas compatible avec le sommet du talon
+            if ( !c.compatible( talon.sommet() ) ) { // la tarjeta extraída recientemente no es compatible con la parte superior de la acción
                 System.out.println(
                         "Sin suerte ! todavía no tienes ninguna carta jugable, tienes que pasar el turno" );
                 System.out.println( "----------------------------------" );
                 Audio.playSound( "hardLuckSound" );
-                return; // passer le tour <=> quitter la m�thode
+                return; // saltar <=> método de salida
             } else {
-                afficherMain(); // sur la console
+                afficherMain(); //en la consola
             }
         }
         jouerCarte();
@@ -315,15 +314,15 @@ public abstract class Joueur extends GameObject {
     @Override
     public void render( Graphics g ) throws SlickException {
         this.afficherMain( g );
-        // afficher le nom du joueur
+        //mostrar el nombre del jugador
         int xPos, yPos, angleRotation;
         final int offsetHautBas = 50, offsetDroiteGauche = 50;
         String playerName = this.pseudo + " (" + nbCartes() + ")";
 
         Color oldColor = g.getColor();
-        int tour = Jeu.tour; // pour assurer que la valeur de Jeu.tour n'a pas �t� chang� !
+        int tour = Jeu.tour; // ¡para asegurarse de que el valor de Game.turn no haya cambiado!
         if ( id == tour ) {
-            // si c'est le joueur courant, on change la couleur de son nom pour indiquer le sens du jeu
+            // si es el jugador actual, cambiamos el color de su nombre para indicar la dirección del juego
             //oldColor = g.getColor();
             g.setColor( Color.black );
         }
@@ -368,7 +367,7 @@ public abstract class Joueur extends GameObject {
             break;
         }
         if ( id == tour ) {
-            // si c'est le joueur courant, on change la couleur de son nom pour indiquer le sens du jeu
+            // si es el jugador actual, cambiamos el color de su nombre para indicar la dirección del juego
             g.setColor( oldColor );
         }
     }
@@ -376,8 +375,8 @@ public abstract class Joueur extends GameObject {
 }
 
 /**
- * cette classe va �tre utilis� en tant que <<Utility>> pour aider
- * la classe Joueur dans le dessin / render du joueur
+ *esta clase se usará como una <<Utilidad>> para ayudar 
+ * a la clase Player a dibujar/representar al jugador
  * @author Stoufa
  *
  */
@@ -394,7 +393,7 @@ class JoueurPainter {
         case HAUT:
             return Game.WIDTH / 2 - Carte.WIDTH / 2;
         case GAUCHE:
-            return 25 + offsetDroiteGauche; // 25 pour ne pas compter les bordures de la fen�tre
+            return 25 + offsetDroiteGauche; // 25 para no contar los bordes de la ventana
         }
         return 0;
     }

@@ -8,23 +8,21 @@ import main.Game;
 import main.common.Config;
 
 /**
- * classe repr�sentant le talon du jeu
- * @author Stoufa
- *
+ * clase que representa el stub del juego
  */
 public class Talon extends Pile {
 
     /**
      * constructeur
-     * @param pioche : la pioche du jeu dont on doit prendre une carte pour quelle soit la 1ere carte du talon
+     * @param pioche : la baraja del juego de la que se debe tomar una carta para la cual es la primera carta de la reserva
      */
     public Talon( Pioche pioche ) {
         ajouterPremiereCarte( pioche );
     }
 
     /**
-     * permet d'ajouter la premi�re carte ( au d�but du jeu )
-     * @param pioche : la pioche d'o� on veut tirer la carte
+     * permite agregar la primera carta (al comienzo del juego)
+     * @param pioche : la pila de sorteo de la que desea robar la carta
      */
     private void ajouterPremiereCarte( Pioche pioche ) {
         empiler( pioche.premiereCarteTalon() );
@@ -46,7 +44,7 @@ public class Talon extends Pile {
     }
 
     /**
-     * retourne une cha�ne d�crivant le talon
+     *devuelve una cadena que describe el código auxiliar
      */
     @Override
     public String toString() {
@@ -57,29 +55,29 @@ public class Talon extends Pile {
         for ( int i = 0; i < cartes.size(); ++i ) {
             Carte carte = cartes.get( i );
             str = str + i + ") " + carte.toString();
-            if ( i != cartes.size() - 1 ) { // si ce n'est pas la derni�re it�ration
-                str = str + "\n"; // ajouter un retour chariot
+            if ( i != cartes.size() - 1 ) { // si esta no es la última iteración
+                str = str + "\n"; //añadir un retorno de carro
             }
         }
         return str;
     }
 
     /**
-     * permet d'afficher le talon
+     * muestra el talón
      */
     public void afficher() {
         System.out.println( this );
     }
 
     /**
-     * permet d'afficher la carte au sommet du talon
+     * permite que el mapa se muestre en la parte superior del stub
      */
     public void afficherSommet() {
         System.out.println( "Pico del talón: " + sommet().toString() );
     }
 
     /**
-     * la m�thode responsable d'afficher le talon sur l'�cran
+     * el método responsable de mostrar el stub en la pantalla
      * @param g
      * @throws SlickException 
      */
@@ -94,7 +92,7 @@ public class Talon extends Pile {
         carteSommet.angle = 0;
         carteSommet.updateBounds();
 
-        // Pour voir � peu pr�s combien y en a de cartes
+        // Para ver aproximadamente cuántas tarjetas hay
         float yVal = carteSommet.y;
         for ( int i = 0; i < cartes.size(); ++i ) {
             g.drawImage( image, carteSommet.x, yVal );
@@ -103,7 +101,7 @@ public class Talon extends Pile {
             }
         }
 
-        // showing number of cards
+        // mostrando el número de tarjetas
         int offset = 20;
         String str = String.valueOf( this.cartes.size() );
         g.drawString( str,
@@ -111,13 +109,13 @@ public class Talon extends Pile {
                 Game.WIDTH / 2 - Integer.parseInt( Config.get( "offsetPiocheTalon" ) )
                         - g.getFont().getWidth( str ) / 2,
                 // a little bit above the last card
-                yVal - offset // pour que �a soit pr�s de la carte du sommet de la pile
+                yVal - offset // para que esté cerca de la carta superior de la pila
         //Game.HEIGHT / 2 - Carte.HEIGHT / 2 - offset
         );
     }
 
-    //	On n'a pas besoin d'impl�menter la m�thode update() pour le talon, le click
-    //	sur le talon n'a pas un effet sp�cial !
+ // No necesitamos implementar el método update() para el stub, el clic
+    // ¡en el talón no tiene un efecto especial!
     //	public void update(GameContainer container) throws SlickException {
     //		Input input = container.getInput();
     //		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {	// click detected			

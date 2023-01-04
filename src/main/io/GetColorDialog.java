@@ -19,8 +19,7 @@ import javax.swing.border.EmptyBorder;
 import main.gameObjects.Jeu;
 
 /**
- * Classe repr�sentant la fen�tre de choix de couleurs
- * ( Cr��e � l'aide de WindowBuilder )
+ *Clase que representa la ventana del selector de color* (Creada con WindowBuilder)
  *
  */
 public class GetColorDialog extends JDialog {
@@ -82,8 +81,8 @@ public class GetColorDialog extends JDialog {
             }
 
             @Override
-            public void windowClosed( WindowEvent e ) { // quand la fen�tre se ferme
-                Jeu.waitForDialogCountDownLatch.countDown(); // lib�rer le s�maphore
+            public void windowClosed( WindowEvent e ) { // cuando la ventana se cierra
+                Jeu.waitForDialogCountDownLatch.countDown(); // soltar el semáforo
             }
 
             @Override
@@ -100,7 +99,7 @@ public class GetColorDialog extends JDialog {
         contentPanel.setBorder( new EmptyBorder( 5, 5, 5, 5 ) );
         getContentPane().add( contentPanel, BorderLayout.CENTER );
 
-        btnBleu = new JButton( "Azul" ); //Esto no deberia cambiarse
+        btnBleu = new JButton( "Azul" ); 
 
         btnBleu.setForeground( Color.BLACK );
         btnBleu.setBackground( Color.BLUE );

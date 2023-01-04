@@ -7,11 +7,11 @@ import java.awt.event.ActionListener;
 public class GetColorDialogBtnActionListener implements ActionListener {
 
     /**
-     * le nom de la couleur choisie
+     * el nombre del color elegido
      */
     String         couleur;
     /**
-     * r�f�rence sur la fen�tre associ�e
+     *referencia en la ventana asociada
      */
     GetColorDialog dialog;
 
@@ -26,12 +26,12 @@ public class GetColorDialogBtnActionListener implements ActionListener {
     }
 
     /**
-     * cette m�thode contient le code � �x�cuter lors d'un clique
+     * este método contiene el código para ejecutar al hacer clic
      */
     @Override
     public void actionPerformed( ActionEvent e ) {
-        dialog.selectedColor = couleur; // sauvegarder la couleur choisie
+        dialog.selectedColor = couleur; // guardar el color elegido
         System.out.println( "Color seleccionado = " + couleur );
-        dialog.dispose(); // fermer la fen�tre
+        dialog.dispose(); // cerrar la ventana
     }
 }

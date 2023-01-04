@@ -29,11 +29,7 @@ public class Game extends StateBasedGame {
         Audio.musicEnabled = Boolean.parseBoolean( Config.get( "jouerMusique" ) );
         Audio.soundEnabled = Boolean.parseBoolean( Config.get( "jouerSons" ) );
 
-        Audio.load(); // Chargement des sons
-        //WIDTH = Integer.parseInt(Config.get("width"));
-        //HEIGHT = WIDTH * 9 / 16;	// 16/9 format, w = 16/9 h
-        //HEIGHT = WIDTH;	// fen�tre carr�e
-
+        Audio.load(); 
         TITLE = Config.get( "title" );
 
         AppGameContainer app = new AppGameContainer( new Game( TITLE ) );
@@ -49,7 +45,7 @@ public class Game extends StateBasedGame {
      * initialiser la liste des �tats du jeu
      */
     public void initStatesList( GameContainer gc ) throws SlickException {
-        //this.addState(new MenuState(0));	// le premier �tat ( State ) est le premier � �tre affich�
+
         this.addState( new GameState( 1 ) );
         this.addState( new GameOverState( 2 ) );
     }
